@@ -120,7 +120,7 @@ graph LR
 2. **Continuous Deployment (CD):** The pipeline securely connects to the Azure VM via SSH, updates the active Kubernetes deployments using `kubectl set image`, and monitors the rollout status to ensure successful zero-downtime updates.
 
 
-`![CI/CD Pipeline Success](./images/cicd-success.png)`
+![CI/CD Pipeline Success](./images/cicd-success.png)
 
 ---
 
@@ -142,7 +142,7 @@ Grafana is exposed via a Kubernetes `NodePort` and can be accessed externally th
 * Real-time visualization of Kubernetes Self-Healing capabilities (Pod restarts/terminations).
 
 
-`![Grafana Dashboard](./images/grafana-dashboard.png)`
+![Grafana Dashboard](./images/grafana-dashboard.png)
 
 
 
