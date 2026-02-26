@@ -1,0 +1,3 @@
+ui/tls.key
+ui/tls.crt
+weather/secret.yaml
