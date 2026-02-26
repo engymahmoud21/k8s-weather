@@ -24,7 +24,7 @@ jobs:
       - name: Build and Push UI
         uses: docker/build-push-action@v4
         with:
-          context: ./kubernetes/ui
+          context: ./kubernetes/UI
           push: true
           tags: engymahmoud/weatherapp-ui:latest, engymahmoud/weatherapp-ui:${{ github.sha }}
 
