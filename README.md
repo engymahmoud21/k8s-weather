@@ -3,6 +3,7 @@
 # 🌤️ Kubernetes Weather & Auth Microservices
 
 A production-ready, highly available microservices application deployed on Kubernetes (Azure VM). This project is logically separated into distinct microservices (UI, Weather, and Authentication) and uses an NGINX Ingress Controller with forced HTTPS.
+```
 
 ## 🏗️ Architecture Diagram
 
