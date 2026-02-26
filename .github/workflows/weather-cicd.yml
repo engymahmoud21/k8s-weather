@@ -1,10 +1,9 @@
-name: Deploy Weather App
+name: Full Stack CI/CD Pipeline
 
 on:
   push:
     branches:
       - main
-
 
 jobs:
   build-and-deploy:
@@ -19,20 +18,56 @@ jobs:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
 
-      - name: Build and Push Docker Image
+      # ---------------------------------------------
+      # 1. بناء ورفع صورة الـ UI
+      # ---------------------------------------------
+      - name: Build and Push UI
         uses: docker/build-push-action@v4
         with:
-          context: ./weather  
+          context: ./kubernetes/ui
           push: true
-          
-          tags: ${{ secrets.DOCKER_USERNAME }}/weatherapp-weather:latest, ${{ secrets.DOCKER_USERNAME }}/weatherapp-weather:${{ github.sha }}
+          tags: engymahmoud/weatherapp-ui:latest, engymahmoud/weatherapp-ui:${{ github.sha }}
 
-      - name: Deploy to Kubernetes on Azure VM
+      # ---------------------------------------------
+      # 2. بناء ورفع صورة الـ Weather
+      # ---------------------------------------------
+      - name: Build and Push Weather
+        uses: docker/build-push-action@v4
+        with:
+          context: ./kubernetes/weather
+          push: true
+          tags: engymahmoud/weatherapp-weather:latest, engymahmoud/weatherapp-weather:${{ github.sha }}
+
+      # ---------------------------------------------
+      # 3. بناء ورفع صورة الـ Authentication
+      # ---------------------------------------------
+      - name: Build and Push Auth
+        uses: docker/build-push-action@v4
+        with:
+          context: ./kubernetes/authentication
+          push: true
+          tags: engymahmoud/weatherapp-auth:latest, engymahmoud/weatherapp-auth:${{ github.sha }}
+
+      # ---------------------------------------------
+      # 4. تحديث الكلاستر على سيرفر Azure
+      # ---------------------------------------------
+      - name: Deploy all to Kubernetes
         uses: appleboy/ssh-action@v0.1.10
         with:
           host: ${{ secrets.AZURE_VM_IP }}
           username: ${{ secrets.AZURE_VM_USERNAME }}
           key: ${{ secrets.AZURE_VM_SSH_KEY }}
           script: |
-            kubectl set image deployment/weatherapp-weather weatherapp-weather=${{ secrets.DOCKER_USERNAME }}/weatherapp-weather:${{ github.sha }}
+            # تحديث الـ UI
+            kubectl set image deployment/ui-deployment ui=engymahmoud/weatherapp-ui:${{ github.sha }}
+            
+            # تحديث الـ Weather
+            kubectl set image deployment/weatherapp-weather weatherapp-weather=engymahmoud/weatherapp-weather:${{ github.sha }}
+            
+            # تحديث الـ Auth
+            kubectl set image deployment/auth-deployment auth=engymahmoud/weatherapp-auth:${{ github.sha }}
+            
+            # مراقبة نجاح التحديث
+            kubectl rollout status deployment/ui-deployment
             kubectl rollout status deployment/weatherapp-weather
+            kubectl rollout status deployment/auth-deployment
