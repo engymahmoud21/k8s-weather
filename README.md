@@ -119,7 +119,7 @@ graph LR
 1. **Continuous Integration (CI):** On every push to the `main` branch, the pipeline securely logs into Docker Hub, builds the 3 separate Docker images (`UI`, `Weather`, `Auth`), tags them with the GitHub commit SHA, and pushes them.
 2. **Continuous Deployment (CD):** The pipeline securely connects to the Azure VM via SSH, updates the active Kubernetes deployments using `kubectl set image`, and monitors the rollout status to ensure successful zero-downtime updates.
 
-*(Add your GitHub Actions success screenshot here)*
+
 `![CI/CD Pipeline Success](./images/cicd-success.png)`
 
 ---
@@ -141,7 +141,7 @@ Grafana is exposed via a Kubernetes `NodePort` and can be accessed externally th
 * Namespace Workloads and Pod health.
 * Real-time visualization of Kubernetes Self-Healing capabilities (Pod restarts/terminations).
 
-*(Add your Grafana Dashboard screenshot here)*
+
 `![Grafana Dashboard](./images/grafana-dashboard.png)`
 
 
