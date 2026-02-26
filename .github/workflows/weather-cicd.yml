@@ -59,15 +59,15 @@ jobs:
           key: ${{ secrets.AZURE_VM_SSH_KEY }}
           script: |
             # تحديث الـ UI
-            kubectl set image deployment/ui-deployment ui=engymahmoud/weatherapp-ui:${{ github.sha }}
+            kubectl set image deployment/weatherapp-ui ui=engymahmoud/weatherapp-ui:${{ github.sha }}
             
             # تحديث الـ Weather
             kubectl set image deployment/weatherapp-weather weatherapp-weather=engymahmoud/weatherapp-weather:${{ github.sha }}
             
             # تحديث الـ Auth
-            kubectl set image deployment/auth-deployment auth=engymahmoud/weatherapp-auth:${{ github.sha }}
+            kubectl set image deployment/weatherapp-auth auth=engymahmoud/weatherapp-auth:${{ github.sha }}
             
             # مراقبة نجاح التحديث
-            kubectl rollout status deployment/ui-deployment
+            kubectl rollout status deployment/weatherapp-ui
             kubectl rollout status deployment/weatherapp-weather
-            kubectl rollout status deployment/auth-deployment
+            kubectl rollout status deployment/weatherapp-auth
