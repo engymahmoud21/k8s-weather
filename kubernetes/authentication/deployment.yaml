@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: weatherapp-auth
-        image: afakharany/weatherapp-auth:lab
+        image: engymahmoud/weatherapp-auth:latest
         imagePullPolicy: IfNotPresent
         ports:
           - containerPort: 8080

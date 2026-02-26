@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: weatherapp-ui
-          image: "afakharany/weatherapp-ui:lab"
+          image: "engymahmoud/weatherapp-ui:latest"
           imagePullPolicy: IfNotPresent
           env:
           - name: AUTH_HOST
