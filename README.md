@@ -11,17 +11,16 @@ A production-ready, highly available microservices application deployed on Kuber
 
 ```mermaid
 graph TD
-    User([🌐 User/Browser]) -->|HTTPS :443| Ingress[🔀 NGINX Ingress Controller]
+    User(["🌐 User/Browser"]) -->|HTTPS :443| Ingress["🔀 NGINX Ingress Controller"]
     
-    Ingress -->|/| UI[💻 UI Service Pods]
-    Ingress -->|/weather| WeatherSvc[🌤️ Weather Service Pods]
-    Ingress -->|/login| AuthSvc[🔐 Auth Service Pods]
+    Ingress -->|/| UI["💻 UI Service Pods"]
+    Ingress -->|/weather| WeatherSvc["🌤️ Weather Service Pods"]
+    Ingress -->|/login| AuthSvc["🔐 Auth Service Pods"]
     
-    WeatherSvc -->|External API Call| RapidAPI((☁️ RapidAPI))
+    WeatherSvc -->|External API Call| RapidAPI(("☁️ RapidAPI"))
     
-    AuthSvc -->|TCP 3306| DB[(🗄️ MySQL StatefulSet)]
-    DB --- PVC[💾 Persistent Volume]
-
+    AuthSvc -->|TCP 3306| DB[("🗄️ MySQL StatefulSet")]
+    DB --- PVC["💾 Persistent Volume"]
 ```
 
 ## 📁 Project Structure
