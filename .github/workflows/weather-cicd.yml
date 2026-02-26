@@ -54,16 +54,12 @@ jobs:
           username: ${{ secrets.AZURE_VM_USERNAME }}
           key: ${{ secrets.AZURE_VM_SSH_KEY }}
           script: |
-          # update the images in the Kubernetes deployment
             kubectl set image deployment/weatherapp-ui weatherapp-ui=engymahmoud/weatherapp-ui:${{ github.sha }}
             
-          # update the images in the Kubernetes deployment
             kubectl set image deployment/weatherapp-weather weatherapp-weather=engymahmoud/weatherapp-weather:${{ github.sha }}
             
-          # update the images in the Kubernetes deployment
             kubectl set image deployment/weatherapp-auth weatherapp-auth=engymahmoud/weatherapp-auth:${{ github.sha }}
             
-          # check the rollout status of the deployments 
             kubectl rollout status deployment/weatherapp-ui
             kubectl rollout status deployment/weatherapp-weather
             kubectl rollout status deployment/weatherapp-auth
