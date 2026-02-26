@@ -5,7 +5,7 @@ on:
     branches:
       - main
     paths:
-      - 'weather/**'
+      - 'k8s-weather/**'
 
 jobs:
   build-and-deploy:
