@@ -104,13 +104,17 @@ Navigate to: `https://weatherapp.local`
 
 This project uses a GitOps approach with a fully automated Continuous Integration and Continuous Deployment (CI/CD) pipeline.
 
+
+
 ```mermaid
 graph LR
     Dev(["💻 Developer"]) -->|git push| Repo["🐙 GitHub Repo"]
     Repo -->|Triggers| Actions["⚙️ GitHub Actions"]
     Actions -->|1. Build & Push| DockerHub{"🐳 Docker Hub"}
     Actions -->|2. SSH & kubectl set image| K8s["☸️ Azure K8s Cluster"]
-    K8s -->|Pulls Images| DockerHub
+    K8s -->|3. Pulls New Image| DockerHub
+    K8s -->|4. Rolling Update| Pods["✅ New Pods Running"]
+    Pods -.->|5. Rollout Success| Actions
 
 ```
 
