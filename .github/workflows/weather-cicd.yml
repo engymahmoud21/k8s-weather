@@ -24,7 +24,7 @@ jobs:
       - name: Build and Push UI
         uses: docker/build-push-action@v4
         with:
-          context: ./kubernetes/UI
+          context: ./UI
           push: true
           tags: engymahmoud/weatherapp-ui:latest, engymahmoud/weatherapp-ui:${{ github.sha }}
 
@@ -34,7 +34,7 @@ jobs:
       - name: Build and Push Weather
         uses: docker/build-push-action@v4
         with:
-          context: ./kubernetes/weather
+          context: ./weather
           push: true
           tags: engymahmoud/weatherapp-weather:latest, engymahmoud/weatherapp-weather:${{ github.sha }}
 
@@ -44,7 +44,7 @@ jobs:
       - name: Build and Push Auth
         uses: docker/build-push-action@v4
         with:
-          context: ./kubernetes/authentication
+          context: ./auth
           push: true
           tags: engymahmoud/weatherapp-auth:latest, engymahmoud/weatherapp-auth:${{ github.sha }}
 
